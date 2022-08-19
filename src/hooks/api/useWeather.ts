@@ -59,7 +59,7 @@ export const useWeather = () => {
   const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>();
 
   const fetchCurrentWeather = useCallback(async () => {
-    const weatherApiKey = "c027c43357a44b159a8dc9d2a37fbb02";
+    const weatherApiKey = "insert-weather-api-key-here";
     if (currentLocation) {
       try {
         const response = await axios.get(
