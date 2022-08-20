@@ -1,18 +1,14 @@
-import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
-
-import { Weather } from "./components/Weather";
-import { Home } from "./pages/Home";
-import { Navigation } from "./components/Navigation";
+import { Weather } from "./public/components/Weather";
+import Home from "./pages";
 
 // Selecting an activity/outfit returns suggested items required
 
 function App() {
   return (
-    <Box>
-      <Navigation />
+     <>
       <Home/>
-      <Weather />
-    </Box>
+      {/* <Weather /> */}
+      </>
   );
 }
 
