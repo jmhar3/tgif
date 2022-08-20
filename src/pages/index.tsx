@@ -28,20 +28,15 @@ function Home() {
 
   return (
     <DefaultLayout>
-      <VStack>
-        <Heading>{title}</Heading>
-        <HStack>
-          <Outfit />
+      <HStack width="100%">
+        <VStack align="flex-start" padding="20px" width="100%">
+          <Heading size="lg">{title}</Heading>
           <Activities />
-        </HStack>
-        <HStack>
-          {<Evening width={warnings ? "100%" : "200%"} />}
-          {warnings && <Warning />}
-          <Upcoming />
-        </HStack>
-      </VStack>
+        </VStack>
+        <Outfit />
+      </HStack>
     </DefaultLayout>
   );
-};
+}
 
-export default Home
+export default Home;

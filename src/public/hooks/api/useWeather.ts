@@ -59,32 +59,30 @@ export const useWeather = () => {
   const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>();
 
   const fetchCurrentWeather = useCallback(async () => {
-    const weatherApiKey = "insert-weather-api-key-here";
-    if (currentLocation) {
+    if (currentLocation && process.env.WEATHER_API_KEY) {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${weatherApiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.WEATHER_API_KEY}&units=metric`
         );
         setCurrentWeather(response.data);
       } catch (error) {
         console.log(error);
       }
     }
-  }, [currentLocation]);
+  }, [currentLocation, process.env.WEATHER_API_KEY]);
 
   const fetchWeatherForecast = useCallback(async () => {
-    const forecastApiKey = "13c90c3b9586d2890f96ada2c712a1a6";
-    if (currentLocation) {
+    if (currentLocation && process.env.WEATHER_API_KEY) {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${forecastApiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.WEATHER_API_KEY}&units=metric`
         );
         setWeatherForecast(response.data);
       } catch (error) {
         console.log(error);
       }
     }
-  }, [currentLocation]);
+  }, [currentLocation, process.env.WEATHER_API_KEY]);
 
   useEffect(() => {
     fetchCurrentWeather();

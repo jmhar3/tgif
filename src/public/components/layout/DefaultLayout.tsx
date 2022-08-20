@@ -1,6 +1,5 @@
-import { HStack, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import { JsxElement } from "typescript";
 
 import { Navigation } from "../Navigation";
 
@@ -12,9 +11,9 @@ export const DefaultLayout = (props: Props) => {
   const { children } = props;
 
   return (
-    <HStack width="100%">
-        <Navigation />
-        {children}
+    <HStack paddingLeft="90px">
+      <Navigation />
+      {children}
     </HStack>
   );
 };

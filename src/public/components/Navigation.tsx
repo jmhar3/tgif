@@ -12,24 +12,53 @@ import calendar2 from "../images/calendar_2.png";
 
 export const Navigation = () => {
   return (
-    <Stack direction="column">
+    <Stack
+      position="fixed"
+      top="0"
+      left="0"
+      direction="column"
+      p="5"
+      backgroundColor="neutral.sheer"
+      height="100%"
+    >
       <Link href="/">
         <IconButton
+          backgroundColor="neutral.boldSheer"
+          transition="all .3s"
+          _hover={{ backgroundColor: "neutral.light" }}
           aria-label="home"
-          icon={<Image src={home} boxSize="100px" objectFit="cover" />}
+          icon={<Img src={home} />}
         />
       </Link>
 
       <Link href="/activities">
-        <IconButton aria-label="activities" icon={<Img src={activity} />} />
+        <IconButton
+          backgroundColor="neutral.boldSheer"
+          transition="all .3s"
+          _hover={{ backgroundColor: "neutral.light" }}
+          aria-label="activities"
+          icon={<Img src={activity} />}
+        />
       </Link>
 
       <Link href="/outfit">
-        <IconButton aria-label="outfit" icon={<Img src={outfit} />} />
+        <IconButton
+          backgroundColor="neutral.boldSheer"
+          transition="all .3s"
+          _hover={{ backgroundColor: "neutral.light" }}
+          aria-label="outfit"
+          icon={<Img src={outfit} />}
+        />
       </Link>
 
       <Link href="/upcoming">
-        <IconButton aria-label="upcoming" icon={<Img src={calendar2} />} />
+        <IconButton
+          backgroundColor="neutral.boldSheer"
+          transition="all .3s"
+          _hover={{ backgroundColor: "neutral.light" }}
+          aria-label="upcoming"
+          icon={<Img src={calendar2} />}
+        />
       </Link>
     </Stack>
   );
