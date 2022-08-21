@@ -23,9 +23,9 @@ export const Navigation = () => {
     >
       <Link href="/">
         <IconButton
-          backgroundColor="neutral.boldSheer"
+          backgroundColor="neutral.light"
           transition="all .3s"
-          _hover={{ backgroundColor: "neutral.light" }}
+          _hover={{ backgroundColor: "neutral.boldSheer" }}
           aria-label="home"
           icon={<Img src={home} />}
         />
@@ -33,9 +33,9 @@ export const Navigation = () => {
 
       <Link href="/activities">
         <IconButton
-          backgroundColor="neutral.boldSheer"
+          backgroundColor="neutral.light"
           transition="all .3s"
-          _hover={{ backgroundColor: "neutral.light" }}
+          _hover={{ backgroundColor: "neutral.boldSheer" }}
           aria-label="activities"
           icon={<Img src={activity} />}
         />
@@ -43,9 +43,9 @@ export const Navigation = () => {
 
       <Link href="/outfit">
         <IconButton
-          backgroundColor="neutral.boldSheer"
+          backgroundColor="neutral.light"
           transition="all .3s"
-          _hover={{ backgroundColor: "neutral.light" }}
+          _hover={{ backgroundColor: "neutral.boldSheer" }}
           aria-label="outfit"
           icon={<Img src={outfit} />}
         />
@@ -53,9 +53,9 @@ export const Navigation = () => {
 
       <Link href="/upcoming">
         <IconButton
-          backgroundColor="neutral.boldSheer"
+          backgroundColor="neutral.light"
           transition="all .3s"
-          _hover={{ backgroundColor: "neutral.light" }}
+          _hover={{ backgroundColor: "neutral.boldSheer" }}
           aria-label="upcoming"
           icon={<Img src={calendar2} />}
         />

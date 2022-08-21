@@ -5,9 +5,6 @@ import { VStack, HStack, Heading } from "@chakra-ui/react";
 import { DefaultLayout } from "../public/components/layout/DefaultLayout";
 import { Outfit } from "../public/components/Outfit";
 import { Activities } from "../public/components/Activities";
-import { Warning } from "../public/components/Warning";
-import { Upcoming } from "../public/components/Upcoming";
-import { Evening } from "../public/components/Evening";
 
 import { useWeather } from "../public/hooks/api/useWeather";
 import { useMemo } from "react";
@@ -16,6 +13,10 @@ function Home() {
   const warnings = false;
 
   const { currentWeather, weatherForecast } = useWeather();
+
+ 
+  console.log("currentWeather", currentWeather)
+  console.log("weatherForecast", weatherForecast)
 
   const title = useMemo(() => {
     if (weatherForecast) {
@@ -29,7 +30,7 @@ function Home() {
   return (
     <DefaultLayout>
       <HStack width="100%">
-        <VStack align="flex-start" padding="20px" width="100%">
+        <VStack justify="flex-start" align="flex-start" padding="20px" width="100%" minH="100vh">
           <Heading size="lg">{title}</Heading>
           <Activities />
         </VStack>

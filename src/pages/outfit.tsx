@@ -1,11 +1,15 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-export const OutfitDashboard = () => {
+import { DefaultLayout } from "../public/components/layout/DefaultLayout";
+
+function OutfitDashboard() {
   return (
-    <Box>
+    <DefaultLayout>
       <Heading>Plan for the weather</Heading>
       {/* include wind warning for hair, gloss */}
       {/* bright skies warning for sunnies, sunscreen */}
-    </Box>
+    </DefaultLayout>
   );
-};
+}
+
+export default OutfitDashboard;

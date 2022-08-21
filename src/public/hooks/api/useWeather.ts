@@ -62,7 +62,7 @@ export const useWeather = () => {
     if (currentLocation && process.env.WEATHER_API_KEY) {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.WEATHER_API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
         );
         setCurrentWeather(response.data);
       } catch (error) {
@@ -72,10 +72,11 @@ export const useWeather = () => {
   }, [currentLocation, process.env.WEATHER_API_KEY]);
 
   const fetchWeatherForecast = useCallback(async () => {
-    if (currentLocation && process.env.WEATHER_API_KEY) {
+        console.log(process.env.WEATHER_API_KEY)
+    if (currentLocation) {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.WEATHER_API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
         );
         setWeatherForecast(response.data);
       } catch (error) {

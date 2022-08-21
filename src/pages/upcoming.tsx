@@ -1,9 +1,13 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-export const Upcoming = () => {
+import { DefaultLayout } from "../public/components/layout/DefaultLayout";
+
+function Upcoming() {
   return (
-    <Box>
+    <DefaultLayout>
       <Heading>Plan your week</Heading>
-    </Box>
+    </DefaultLayout>
   );
-};
+}
+
+export default Upcoming;

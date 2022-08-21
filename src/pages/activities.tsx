@@ -1,10 +1,13 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 
-export const ActivityDashboard = () => {
+import { DefaultLayout } from "../public/components/layout/DefaultLayout";
+
+function ActivityDashboard() {
   return (
-    <Box>
-      <Heading>Daytime Activities</Heading>
-      <Heading>Evening Activities</Heading>
-    </Box>
+    <DefaultLayout>
+      <Heading>Activities</Heading>
+    </DefaultLayout>
   );
-};
+}
+
+export default ActivityDashboard;
