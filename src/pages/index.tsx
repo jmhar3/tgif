@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import dayjs from "dayjs";
 
 import { VStack, HStack, Heading } from "@chakra-ui/react";
@@ -7,35 +8,73 @@ import { Outfit } from "../public/components/Outfit";
 import { Activities } from "../public/components/Activities";
 
 import { useWeather } from "../public/hooks/api/useWeather";
-import { useMemo } from "react";
 
 function Home() {
-  const warnings = false;
-
   const { currentWeather, weatherForecast } = useWeather();
 
- 
-  console.log("currentWeather", currentWeather)
-  console.log("weatherForecast", weatherForecast)
+  // console.log("currentWeather", currentWeather);
+  // console.log("weatherForecast", weatherForecast);
 
-  const title = useMemo(() => {
+  const currentDateTime = useMemo(() => {
+    const dateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    const date = dateTime.slice(0, 11);
+    const time = +dateTime.slice(11, 13);
+    const currentTime = () => {
+      if (time < 3) {
+        return "00:00:00";
+      } else if (time < 6) {
+        return "03:00:00";
+      } else if (time < 9) {
+        return "06:00:00";
+      } else if (time < 12) {
+        return "09:00:00";
+      } else if (time < 15) {
+        return "12:00:00";
+      } else if (time < 18) {
+        return "15:00:00";
+      } else if (time < 21) {
+        return "18:00:00";
+      } else {
+        return "21:00:00";
+      }
+    };
+    return `${date}${currentTime()}`;
+  }, []);
+
+  const todaysForecast = useMemo(() => {
     if (weatherForecast) {
-      const greeting = dayjs().format("a") === "am" ? "Morning" : "Afternoon";
-      return `Good ${greeting}, ${weatherForecast.city.name}`;
+      const currentIndex = weatherForecast.list.findIndex((report) => {
+        return report.dt_txt === currentDateTime;
+      });
+
+      return weatherForecast.list.slice(currentIndex, currentIndex + 4);
     } else {
-      return "Howdy Partner";
+      return [];
     }
-  }, [weatherForecast]);
+  }, [weatherForecast, currentDateTime]);
+
+  const username = "titfairy"
 
   return (
     <DefaultLayout>
-      <HStack width="100%">
-        <VStack justify="flex-start" align="flex-start" padding="20px" width="100%" minH="100vh">
-          <Heading size="lg">{title}</Heading>
-          <Activities />
-        </VStack>
-        <Outfit />
-      </HStack>
+      <>
+        {todaysForecast.length > 0 && (
+          <HStack width="100%">
+            <VStack
+              justify="flex-start"
+              align="flex-start"
+              padding="20px"
+              width="100%"
+              minH="100vh"
+              spacing="5"
+            >
+              <Heading size="lg">Howdy {username}</Heading>
+              <Activities />
+            </VStack>
+            <Outfit forecast={todaysForecast} />
+          </HStack>
+        )}
+      </>
     </DefaultLayout>
   );
 }

@@ -9,6 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           color: "accent.main",
         },
       },
+      Img: {
+       defaultProps: {
+        maxW: "9"
+       }
+      }
     },
     styles: {
       global: {
@@ -22,12 +27,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         sheer: 'rgba(255, 254, 253, 0.5)',
         light: "#FFFEFD",
         main: "#F9F8EF",
+        cold: "#A8D9FF",
         bold: "#ECAD78",
         boldSheer: 'rgba(236, 173, 120, 0.25)',
       },
       accent: {
         main: "#04601C",
-        bold: "#FF2950",
+        cold: "#436F91",
+        bold: "#E10600",
       },
     },
   });

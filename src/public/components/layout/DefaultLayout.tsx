@@ -11,7 +11,7 @@ export const DefaultLayout = (props: Props) => {
   const { children } = props;
 
   return (
-    <HStack paddingLeft="90px">
+    <HStack paddingLeft="80px">
       <Navigation />
       {children}
     </HStack>
