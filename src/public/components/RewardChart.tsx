@@ -1,17 +1,61 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useCounter } from "usehooks-ts";
 
-import {
-  HStack,
-  Img,
-  Box,
-  Heading,
-  Stack,
-  VStack,
-  Button,
-} from "@chakra-ui/react";
+import { HStack, Img, Heading, Stack, VStack } from "@chakra-ui/react";
+
+import { SelfCareButton } from "./SelfCareButton";
+import { RewardStore } from "./RewardStore";
+import { useCallback } from "react";
 
 export const StickerChart = () => {
-  const [tally, setTally] = useState({ total: 30, completed: 9 });
+  const { count: credits, increment, decrement } = useCounter(0);
+
+  const [selfCareTasks, setSelfCareTasks] = useState([
+    {
+      index: 0,
+      label: "Exercise",
+      image: "/images/sport.png",
+      isComplete: false,
+    },
+    {
+      index: 1,
+      label: "Meditate",
+      image: "/images/meditation.png",
+      isComplete: false,
+    },
+    {
+      index: 2,
+      label: "Eat Healthy",
+      image: "/images/vegetables.png",
+      isComplete: false,
+    },
+  ]);
+
+  const rewards = useMemo(
+    () => [
+      { label: "Hunt A Killer", value: 30 },
+      { label: "Record Player", value: 90 },
+      { label: "23andMe", value: 45 },
+      { label: "Projector", value: 120 },
+    ],
+    []
+  );
+
+  const onSelfCareButtonClick = useCallback(
+    (index: number) => {
+      setSelfCareTasks((prevState) =>
+        prevState.map((prevTask) => {
+          if (prevTask.index === index) {
+            !prevTask.isComplete ? increment() : decrement();
+            return { ...prevTask, isComplete: !prevTask.isComplete };
+          } else {
+            return prevTask;
+          }
+        })
+      );
+    },
+    [setSelfCareTasks]
+  );
 
   return (
     <VStack
@@ -21,46 +65,32 @@ export const StickerChart = () => {
       p="5"
       justify="space-between"
     >
-      <Stack w="100%" spacing="3">
+      <Stack w="100%" spacing="5">
         <Stack w="100%" justify="space-between" direction={["column", "row"]}>
-          <HStack>
-            <Img maxW="9" src="/images/star.png" />
-            <Heading fontSize="xl">Reward Centre</Heading>
+          <HStack gap="1">
+            <Img maxW="9" src="/images/badge.png" />
+            <Heading fontSize="2xl">Reward Centre</Heading>
           </HStack>
 
-          <HStack>
-            <Img src="/images/reward.png" maxW="6" />
-            <Heading fontSize="xl">Hunt A Killer</Heading>
+          <HStack bg="neutral.main" p="2" borderRadius="md">
+            <Img src="/images/money.png" maxW="6" />
+            <Heading color="accent.main" fontSize="xl">
+              {credits}
+            </Heading>
           </HStack>
         </Stack>
 
-        <HStack>
-          <VStack w="100%" justify="flex-start">
-            <Img maxW="9" src="/images/star.png" />
-            <Heading fontSize="lg">Exercise</Heading>
-          </VStack>
-
-          <VStack w="100%" justify="flex-start">
-            <Img maxW="9" src="/images/star.png" />
-            <Heading fontSize="lg">Meditate</Heading>
-          </VStack>
-
-          <VStack w="100%" justify="flex-start">
-            <Img maxW="9" src="/images/star.png" />
-            <Heading fontSize="lg">Healthy Eating</Heading>
-          </VStack>
+        <HStack gap="3">
+          {selfCareTasks.map((task) => (
+            <SelfCareButton
+              {...task}
+              onSelfCareButtonClick={onSelfCareButtonClick}
+            />
+          ))}
         </HStack>
       </Stack>
 
-      <Stack w="100%" justify="space-between" direction={["column", "row"]}>
-        <Button py="7" px="3" leftIcon={<Img maxW="9" src="/images/badge.png" />}>
-          <Heading fontSize="xl">Earn a credit</Heading>
-        </Button>
-        <HStack>
-          <Img src="/images/reward.png" maxW="6" />
-          <Heading fontSize="xl">Hunt A Killer: 30c</Heading>
-        </HStack>
-      </Stack>
+      <RewardStore rewards={rewards} credits={credits} />
     </VStack>
   );
 };

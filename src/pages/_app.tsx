@@ -9,11 +9,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           color: "accent.main",
         },
       },
-      Button: {
-        baseStyle: {
-          backgroundColor: "accent.main",
-        },
-      },
       Img: {
        defaultProps: {
         maxW: "9"

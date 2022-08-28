@@ -12,8 +12,8 @@ import { useWeather } from "../public/hooks/api/useWeather";
 function Home() {
   const { currentWeather, weatherForecast } = useWeather();
 
-  // console.log("currentWeather", currentWeather);
-  // console.log("weatherForecast", weatherForecast);
+  console.log("currentWeather", currentWeather);
+  console.log("weatherForecast", weatherForecast);
 
   const currentDateTime = useMemo(() => {
     const dateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");

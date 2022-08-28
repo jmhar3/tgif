@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
 
 import { useGeolocation } from "./useGeolocation";
 
@@ -14,10 +15,6 @@ export interface CurrentWeather {
     temp: number;
     temp_max: number;
     temp_min: number;
-  };
-  sys: {
-    sunrise: number;
-    sunset: number;
   };
   weather: {
     description: string;
@@ -51,6 +48,8 @@ export interface Forecast {
 export interface WeatherForecast {
   city: {
     name: string;
+    sunrise: number;
+    sunset: number;
   };
   list: Forecast[];
 }
@@ -60,6 +59,20 @@ export const useWeather = () => {
 
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather>();
   const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>();
+
+  const sunrise = useMemo(
+    () => weatherForecast?.city.sunrise,
+    [weatherForecast]
+  );
+
+  const sunset = useMemo(() => weatherForecast?.city.sunset, [weatherForecast]);
+
+  const isDay = useMemo<boolean | undefined>(() => {
+    if (sunrise && sunset) {
+      const currentTime = Math.round(Date.now() / 1000);
+      return !!(currentTime > sunrise && currentTime < sunset);
+    }
+  }, [sunrise, sunset]);
 
   const fetchCurrentWeather = useCallback(async () => {
     if (currentLocation && process.env.WEATHER_API_KEY) {
@@ -92,5 +105,5 @@ export const useWeather = () => {
     fetchWeatherForecast();
   }, [fetchCurrentWeather, fetchWeatherForecast]);
 
-  return { currentWeather, weatherForecast };
+  return { currentWeather, weatherForecast, isDay, sunrise, sunset };
 };

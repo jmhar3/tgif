@@ -19,16 +19,22 @@ export const ActivityHighlight = () => {
         justify="flex-end"
         bg="url(/images/gardens.jpg) center/cover no-repeat"
         w="100%"
-        minH="180px"
+        minH="150px"
       >
         <Img src="/images/reload.png" maxW="9" pb="12" />
       </Flex>
       <VStack p="3" bg="neutral.light" textAlign="center" h="100%">
-        <Heading fontSize="md">
-          It's the perfect day to soak up some sun
+        <Heading fontSize="lg">
+          Soak up some sun
         </Heading>
         <Text>Go for a stroll and find somewhere nice to read</Text>
-        <Button bg="neutral.boldSheer" color="accent.main" w="100%">
+        <Button
+          backgroundColor="neutral.boldSheer"
+          transition="all .3s"
+          _hover={{ backgroundColor: "neutral.main" }}
+          color="accent.main"
+          w="100%"
+        >
           Tell me more
         </Button>
       </VStack>

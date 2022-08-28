@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Forecast } from "./api/useWeather";
+import { useWeather } from "./api/useWeather";
 
 export interface WarningData {
   colourTheme: string;
@@ -9,6 +10,8 @@ export interface WarningData {
 }
 
 export const useWarnings = (forecast?: Forecast[]) => {
+  const { isDay } = useWeather();
+
   const noDataWarning = {
     colourTheme: "white",
     heading: "There's no data available",
@@ -40,8 +43,10 @@ export const useWarnings = (forecast?: Forecast[]) => {
             ...prevWarnings,
             {
               colourTheme: "blue",
-              heading: "Heads up! Looks like rain",
-              text: "Don't forget to take an umbrella!",
+              heading: isDay ? "Heads up! Looks like rain" : "Look forward to dreamy rainfall",
+              text: isDay
+                ? "Don't forget to take an umbrella!"
+                : "Sleep to the soothing sound of rain",
               icon: "/images/heavy.png",
             },
           ]);
