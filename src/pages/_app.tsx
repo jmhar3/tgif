@@ -9,6 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           color: "accent.main",
         },
       },
+      Button: {
+        baseStyle: {
+          backgroundColor: "accent.main",
+        },
+      },
       Img: {
        defaultProps: {
         maxW: "9"
@@ -27,7 +32,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         sheer: 'rgba(255, 254, 253, 0.5)',
         light: "#FFFEFD",
         main: "#F9F8EF",
-        cold: "#A8D9FF",
+        cold: "#82c2f5",
+        coldSheer: "RGBA(168, 217, 255, 0.1)",
         bold: "#ECAD78",
         boldSheer: 'rgba(236, 173, 120, 0.25)',
       },

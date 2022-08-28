@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { HStack, Heading, Text, VStack, Img } from "@chakra-ui/react";
+import { HStack, Heading, Text, VStack, Img, useToken } from "@chakra-ui/react";
 
 import { WarningData } from "../hooks/useWarnings";
 
@@ -17,12 +17,14 @@ export const Warning = (props: WarningProps) => {
     warning: { heading, text, icon, colourTheme },
   } = props;
 
+  const [neutralCold] = useToken("colors", ["neutral.cold"]);
+
   const colourScheme = useMemo<ColourScheme>(() => {
     switch (colourTheme) {
       case "white":
-       return { background: "neutral.light", text: "neutral.cold" };
+        return { background: "neutral.coldSheer", text: "neutral.cold" };
       case "blue":
-       return { background: "accent.cold", text: "neutral.light" };
+        return { background: "accent.cold", text: "neutral.light" };
       case "amber":
         return { background: "neutral.bold", text: "accent.main" };
       case "red":
@@ -33,7 +35,13 @@ export const Warning = (props: WarningProps) => {
   }, [colourTheme]);
 
   return (
-    <HStack w="100%" justify="space-between" bg={colourScheme.background} p="3" borderRadius="md">
+    <HStack
+      w="100%"
+      justify="space-between"
+      bg={colourScheme.background}
+      p="3"
+      borderRadius="md"
+    >
       <VStack align="left">
         <Heading size="sm" color={colourScheme.text}>
           {heading}

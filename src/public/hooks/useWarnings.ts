@@ -16,27 +16,7 @@ export const useWarnings = (forecast?: Forecast[]) => {
     icon: "/images/clouds.png",
   };
 
-  const [warnings, setWarnings] = useState<WarningData[]>([noDataWarning, {
-   colourTheme: "blue",
-   heading: "There's Blue",
-   text: "Go stand outside and collect the data yourself",
-   icon: "/images/clouds.png",
- }, {
-  colourTheme: "amber",
-  heading: "There's Amber",
-  text: "Go stand outside and collect the data yourself",
-  icon: "/images/clouds.png",
-}, {
- colourTheme: "red",
- heading: "There's Red",
- text: "Go stand outside and collect the data yourself",
- icon: "/images/clouds.png",
-}, {
- colourTheme: "default",
- heading: "There's default",
- text: "Go stand outside and collect the data yourself",
- icon: "/images/clouds.png",
-}]);
+  const [warnings, setWarnings] = useState<WarningData[]>([noDataWarning]);
 
   const fetchWarnings = useCallback(() => {
     if (forecast) {
