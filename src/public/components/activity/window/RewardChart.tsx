@@ -3,8 +3,8 @@ import { useCounter } from "usehooks-ts";
 
 import { HStack, Img, Heading, Stack, VStack } from "@chakra-ui/react";
 
-import { SelfCareButton } from "../SelfCareButton";
-import { RewardStore } from "./RewardStore";
+import { SelfCareButton } from "../../buttons/SelfCareButton";
+import { RewardStoreModal } from "../../modals/RewardStoreModal";
 import { useCallback } from "react";
 
 export const StickerChart = () => {
@@ -90,7 +90,7 @@ export const StickerChart = () => {
         </HStack>
       </Stack>
 
-      <RewardStore rewards={rewards} credits={credits} />
+      <RewardStoreModal rewards={rewards} credits={credits} />
     </VStack>
   );
 };
