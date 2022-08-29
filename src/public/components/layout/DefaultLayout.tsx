@@ -1,7 +1,7 @@
 import { HStack } from "@chakra-ui/react";
 import { ReactElement } from "react";
 
-import { Navigation } from "../Navigation";
+import { Navigation } from "./Navigation";
 
 export interface Props {
   children: ReactElement;

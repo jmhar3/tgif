@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import { VStack, HStack, Heading } from "@chakra-ui/react";
 
 import { DefaultLayout } from "../public/components/layout/DefaultLayout";
-import { Outfit } from "../public/components/Outfit";
-import { Activities } from "../public/components/Activities";
+import { Outfit } from "../public/components/outfit/window/Outfit";
+import { Activities } from "../public/components/activity/window/Activities";
 
 import { useWeather } from "../public/hooks/api/useWeather";
 
