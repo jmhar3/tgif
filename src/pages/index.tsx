@@ -3,11 +3,11 @@ import dayjs from "dayjs";
 
 import { VStack, HStack, Heading } from "@chakra-ui/react";
 
-import { DefaultLayout } from "../public/components/layout/DefaultLayout";
-import { Outfit } from "../public/components/outfit/window/Outfit";
-import { Activities } from "../public/components/activity/window/Activities";
+import { DefaultLayout } from "../components/layout/DefaultLayout";
+import { Outfit } from "../components/outfit/window/Outfit";
+import { Activities } from "../components/activity/window/Activities";
 
-import { useWeather } from "../public/hooks/api/useWeather";
+import { useWeather } from "../hooks/api/useWeather";
 
 function Home() {
   const { currentWeather, weatherForecast } = useWeather();

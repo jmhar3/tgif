@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-import { DefaultLayout } from "../public/components/layout/DefaultLayout";
+import { DefaultLayout } from "../components/layout/DefaultLayout";
 
 function OutfitDashboard() {
   return (
