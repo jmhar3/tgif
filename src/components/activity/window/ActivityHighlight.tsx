@@ -16,6 +16,7 @@ import {
 
 export const ActivityHighlight = () => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useBoolean();
+  const [isMouseOver, setIsMouseOver] = useBoolean();
 
   const activity = {
     image: "/images/gardens.jpg",
@@ -30,34 +31,35 @@ export const ActivityHighlight = () => {
 
   return (
     <>
-      <VStack borderRadius="lg" overflow="hidden" w="120%" spacing="0">
+      <VStack
+        onClick={setIsInfoModalOpen.on}
+        borderRadius="lg"
+        overflow="hidden"
+        w="120%"
+        spacing="0"
+        onMouseEnter={setIsMouseOver.on}
+        onMouseLeave={setIsMouseOver.off}
+      >
+        <Img
+          opacity={isMouseOver ? 0.8 : 1}
+          transition="all .1s"
+          src={activity.image}
+          w="100%"
+          objectFit="cover"
+          no-repeat
+        />
         <VStack
           p="3"
-          align="flex-end"
-          justify="flex-start"
-          bg={`url(${activity.image}) center/cover no-repeat`}
-          w="100%"
-          minH="150px"
+          textAlign="center"
+          bg={isMouseOver ? "neutral.sheer" : "neutral.light"}
+          transition="all .1s"
         >
-          <Img src="/images/reload.png" maxW="9" />
-        </VStack>
-        <VStack p="3" bg="neutral.light" textAlign="center" h="100%">
           <HStack justify="center" w="100%">
             {activity.icons.map((icon) => (
               <Img src={icon} maxW="12" />
             ))}
           </HStack>
           <Text>{activity.blurb}</Text>
-          <Button
-            backgroundColor="neutral.boldSheer"
-            transition="all .3s"
-            _hover={{ backgroundColor: "neutral.main" }}
-            onClick={setIsInfoModalOpen.on}
-            color="accent.main"
-            w="100%"
-          >
-            Tell me more
-          </Button>
         </VStack>
       </VStack>
 
