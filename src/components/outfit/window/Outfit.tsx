@@ -1,11 +1,12 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { Box, Heading, HStack, VStack, Text, Img } from "@chakra-ui/react";
 
-import { Forecast } from "../../../hooks/api/useWeather";
+import { Forecast, useWeather } from "../../../hooks/api/useWeather";
 import { useWarnings } from "../../../hooks/useWarnings";
 
 import { Warning } from "./Warning";
+import { useEffect } from "react";
 
 export interface Props {
   forecast: Forecast[];
@@ -13,6 +14,8 @@ export interface Props {
 
 export const Outfit = (props: Props) => {
   const { forecast } = props;
+
+  const { isDay, sunrise, sunset } = useWeather();
 
   const { warnings } = useWarnings(forecast);
 
@@ -37,6 +40,32 @@ export const Outfit = (props: Props) => {
         return "evening";
     }
   }, []);
+  
+ //  const dayLightHours = useMemo(() => {
+ //   const unixify = (n1: number, n2: number, n3: number, n4: number) =>
+ //     new Date().setUTCHours(n1, n2, n3, n4);
+
+ //   const timeBlocks = [
+ //     ["midnight", unixify(0o0, 0o0, 0o0, 0o0)],
+ //     ["night", unixify(0o3, 0o0, 0o0, 0o0)],
+ //     ["dawn", unixify(0o6, 0o0, 0o0, 0o0)],
+ //     ["morning", unixify(0o11, 0o0, 0o0, 0o0)],
+ //     ["noon", unixify(12, 0o0, 0o0, 0o0)],
+ //     ["afternoon", unixify(15, 0o0, 0o0, 0o0)],
+ //     ["dusk", unixify(18, 0o0, 0o0, 0o0)],
+ //     ["evening", unixify(21, 0o0, 0o0, 0o0)],
+ //   ];
+
+ //   const isSunrise = sunrise && timeBlocks.reduce((prev, curr) => {
+ //    const [label, time] = curr
+ //    const [prevLabel, prevTime] = prev
+ //     return Math.abs(isNaN(time) ? parseInt(time) : time - sunrise) < Math.abs(prev[1] - sunrise) ? curr : prev;
+ //   });
+   
+ //   const isSunset = sunset && timeBlocks.reduce((prev, curr) => {
+ //    return Math.abs(curr - sunset) < Math.abs(prev - sunset) ? curr : prev;
+ //  });
+ // }, []);
 
   const weatherIcon = useCallback((weather: string) => {
     switch (weather) {
@@ -46,6 +75,8 @@ export const Outfit = (props: Props) => {
         return "/images/heavy.png";
       case "Hail":
         return "/images/hail.png";
+      case "Clear":
+        return isDay ? "/images/sun2.png" : "/images/night.png";
       default:
         return undefined;
     }

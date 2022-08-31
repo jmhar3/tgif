@@ -35,7 +35,7 @@ export const ActivityHighlight = () => {
         onClick={setIsInfoModalOpen.on}
         borderRadius="lg"
         overflow="hidden"
-        w="120%"
+        w="100%"
         spacing="0"
         onMouseEnter={setIsMouseOver.on}
         onMouseLeave={setIsMouseOver.off}
@@ -45,6 +45,7 @@ export const ActivityHighlight = () => {
           transition="all .1s"
           src={activity.image}
           w="100%"
+          h="100%"
           objectFit="cover"
           no-repeat
         />

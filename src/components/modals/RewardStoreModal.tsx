@@ -25,12 +25,12 @@ export interface Reward {
 export interface RewardStoreModalProps {
   rewards: Reward[];
   credits: number;
+  isOpen: boolean;
+  onClose: () => void
 }
 
 export const RewardStoreModal = (props: RewardStoreModalProps) => {
-  const { rewards, credits } = props;
-
-  const [isOpen, setIsOpen] = useBoolean();
+  const { rewards, credits, isOpen, onClose } = props;
 
   const [sortedRewards, setSortedRewards] = useState<Reward[]>(rewards);
 
@@ -51,78 +51,70 @@ export const RewardStoreModal = (props: RewardStoreModalProps) => {
   }, [rewards, sortedRewards, setSortedRewards]);
 
   return (
-    <>
-      <Button
-        onClick={setIsOpen.on}
-        px="3"
-        backgroundColor="neutral.boldSheer"
-        transition="all .3s"
-        _hover={{ backgroundColor: "neutral.main" }}
-        leftIcon={<Img maxW="6" src="/images/reward.png" />}
-      >
-        <Heading fontSize="xl">Reward Store</Heading>
-      </Button>
-
-      <Modal isOpen={isOpen} onClose={setIsOpen.off}>
-        <ModalOverlay />
-        <ModalContent bg="neutral.main">
-          <ModalHeader>
-            <HStack justify="space-between">
-              <HStack>
-                <Img maxW="9" src="/images/reward.png" />
-                <Heading fontSize="2xl">Reward Store</Heading>
-              </HStack>
-              <IconButton
-                onClick={() => {
-                  console.log(sortedRewards);
-                  sortRewards();
-                }}
-                bg="none"
-                aria-label="sort"
-                icon={<Img maxW="9" src="/images/sort.png" />}
-              />
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent bg="neutral.main">
+        <ModalHeader>
+          <HStack justify="space-between">
+            <HStack>
+              <Img maxW="9" src="/images/reward.png" />
+              <Heading fontSize="2xl">Reward Store</Heading>
             </HStack>
-          </ModalHeader>
+            <IconButton
+              onClick={() => {
+                console.log(sortedRewards);
+                sortRewards();
+              }}
+              bg="none"
+              aria-label="sort"
+              icon={<Img maxW="9" src="/images/sort.png" />}
+            />
+          </HStack>
+        </ModalHeader>
 
-          <ModalBody>
-            <VStack>
-              {sortedRewards.map((reward) => (
-                <Button p="2" px="3" w="100%" bg="neutral.light"
-                transition="all .3s"
-                _hover={{ backgroundColor: "neutral.boldSheer" }}>
-                  <HStack w="100%" borderRadius="md" justify="space-between">
-                    <Heading size="md">{reward.label}</Heading>
-                    <Heading
-                      color={
-                        credits >= reward.value ? "accent.main" : "accent.bold"
-                      }
-                      opacity="0.7"
-                      size="md"
-                    >
-                      {reward.value}
-                    </Heading>
-                  </HStack>
-                </Button>
-              ))}
-            </VStack>
-          </ModalBody>
-
-          <ModalFooter>
-            <Flex w="100%" justify="center">
+        <ModalBody>
+          <VStack>
+            {sortedRewards.map((reward) => (
               <Button
-                onClick={setIsOpen.off}
+                p="2"
                 px="3"
-                backgroundColor="neutral.boldSheer"
+                w="100%"
+                bg="neutral.light"
                 transition="all .3s"
-                _hover={{ backgroundColor: "neutral.light" }}
-                leftIcon={<Img maxW="6" src="/images/star.png" />}
+                _hover={{ backgroundColor: "neutral.boldSheer" }}
               >
-                <Heading fontSize="xl">Earn more credits</Heading>
+                <HStack w="100%" borderRadius="md" justify="space-between">
+                  <Heading size="md">{reward.label}</Heading>
+                  <Heading
+                    color={
+                      credits >= reward.value ? "accent.main" : "accent.bold"
+                    }
+                    opacity="0.7"
+                    size="md"
+                  >
+                    {reward.value}
+                  </Heading>
+                </HStack>
               </Button>
-            </Flex>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+            ))}
+          </VStack>
+        </ModalBody>
+
+        <ModalFooter>
+          <Flex w="100%" justify="center">
+            <Button
+              onClick={onClose}
+              px="3"
+              backgroundColor="neutral.boldSheer"
+              transition="all .3s"
+              _hover={{ backgroundColor: "neutral.light" }}
+              leftIcon={<Img maxW="6" src="/images/star.png" />}
+            >
+              <Heading fontSize="xl">Earn more credits</Heading>
+            </Button>
+          </Flex>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };

@@ -43,7 +43,9 @@ export const useWarnings = (forecast?: Forecast[]) => {
             ...prevWarnings,
             {
               colourTheme: "blue",
-              heading: isDay ? "Heads up! Looks like rain" : "Look forward to dreamy rainfall",
+              heading: isDay
+                ? "Heads up! Looks like rain"
+                : "Look forward to dreamy rainfall",
               text: isDay
                 ? "Don't forget to take an umbrella!"
                 : "Sleep to the soothing sound of rain",
@@ -68,6 +70,16 @@ export const useWarnings = (forecast?: Forecast[]) => {
               heading: "Caution: High Winds",
               text: "Take a hair tie or wear a hat",
               icon: "/images/wind.png",
+            },
+          ]);
+        highlight === "Clear" && isDay &&
+          setWarnings((prevWarnings) => [
+            ...prevWarnings,
+            {
+              colourTheme: "white",
+              heading: "Clear skies ahead",
+              text: "Don't forget some sunscreen",
+              icon: "/images/sun2.png",
             },
           ]);
       });

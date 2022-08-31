@@ -13,9 +13,8 @@ export const ActivityButton = (props: ActivityButtonProps) => {
   return (
     <VStack
       w="100%"
-      _hover={{bg: "neutral.main"}}
+      _hover={{bg: "neutral.sheer"}}
       bg="neutral.light"
-      border={`1px solid ${neutralBoldSheer}`}
       borderRadius="lg"
       align="center"
       p="5"

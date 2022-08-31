@@ -10,7 +10,7 @@ import { Activities } from "../components/activity/window/Activities";
 import { useWeather } from "../hooks/api/useWeather";
 
 function Home() {
-  const { currentWeather, weatherForecast } = useWeather();
+  const { currentWeather, weatherForecast, sunrise, sunset } = useWeather();
 
   console.log("currentWeather", currentWeather);
   console.log("weatherForecast", weatherForecast);
@@ -53,7 +53,7 @@ function Home() {
     }
   }, [weatherForecast, currentDateTime]);
 
-  const username = "titfairy"
+  const username = "titfairy";
 
   return (
     <DefaultLayout>

@@ -1,13 +1,23 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useCounter } from "usehooks-ts";
 
-import { HStack, Img, Heading, Stack, VStack } from "@chakra-ui/react";
+import {
+  HStack,
+  Img,
+  Heading,
+  Stack,
+  VStack,
+  useBoolean,
+} from "@chakra-ui/react";
 
 import { SelfCareButton } from "../../buttons/SelfCareButton";
+import { ChallengeButton, Challenge } from "../../buttons/ChallengeButton";
+import { RewardStoreButton } from "../../buttons/RewardStoreButton";
 import { RewardStoreModal } from "../../modals/RewardStoreModal";
-import { useCallback } from "react";
 
 export const StickerChart = () => {
+  const [isRewardStoreModalsOpen, setIsRewardStoreModalsOpen] = useBoolean();
+
   const { count: credits, increment, decrement } = useCounter(0);
 
   const [selfCareTasks, setSelfCareTasks] = useState([
@@ -30,6 +40,26 @@ export const StickerChart = () => {
       isComplete: false,
     },
   ]);
+
+  const challenges = useMemo<Challenge[]>(
+    () => [
+      {
+        index: 0,
+        image: "/images/coffee-beans.png",
+        label: "Coffee Free",
+        duration: 30,
+        completed: 0,
+      },
+      {
+        index: 1,
+        image: "/images/bud.png",
+        label: "Weed Free",
+        duration: 30,
+        completed: 0,
+      },
+    ],
+    []
+  );
 
   const rewards = useMemo(
     () => [
@@ -58,29 +88,35 @@ export const StickerChart = () => {
   );
 
   return (
-    <VStack
-      bg="neutral.light"
-      borderRadius="lg"
-      w="200%"
-      p="5"
-      justify="space-between"
-    >
-      <Stack w="100%" spacing="5">
+    <>
+      <VStack
+        bg="neutral.light"
+        borderRadius="lg"
+        w="200%"
+        p="5"
+        spacing="3"
+        justify="space-between"
+      >
         <Stack w="100%" justify="space-between" direction={["column", "row"]}>
           <HStack gap="1">
             <Img maxW="9" src="/images/badge.png" />
             <Heading fontSize="2xl">Reward Centre</Heading>
           </HStack>
 
-          <HStack bg="neutral.main" p="2" borderRadius="md">
+          {/* <HStack bg="neutral.main" p="2" borderRadius="md">
             <Img src="/images/money.png" maxW="6" />
             <Heading color="accent.main" fontSize="xl">
               {credits}
             </Heading>
-          </HStack>
+          </HStack> */}
+
+          <RewardStoreButton
+            credits={credits}
+            onClick={setIsRewardStoreModalsOpen.on}
+          />
         </Stack>
 
-        <HStack gap="3">
+        <HStack spacing="3" w="100%">
           {selfCareTasks.map((task) => (
             <SelfCareButton
               {...task}
@@ -88,9 +124,20 @@ export const StickerChart = () => {
             />
           ))}
         </HStack>
-      </Stack>
 
-      <RewardStoreModal rewards={rewards} credits={credits} />
-    </VStack>
+        <Stack direction="row" justify="space-between" w="100%" spacing="3">
+          {challenges.map((challenge) => (
+            <ChallengeButton challenge={challenge} />
+          ))}
+        </Stack>
+      </VStack>
+
+      <RewardStoreModal
+        rewards={rewards}
+        credits={credits}
+        isOpen={isRewardStoreModalsOpen}
+        onClose={setIsRewardStoreModalsOpen.off}
+      />
+    </>
   );
 };
