@@ -28,10 +28,10 @@ export const Activities = () => {
   const activityButtons = useMemo(() => {
     let activityButtonRows = [];
 
-    for (let i = 0; i < activities.length; i += 3) {
+    for (let i = 0; i < activities.length; i += 4) {
       activityButtonRows.push(
         <HStack spacing="3" w="100%">
-          {activities.slice(i, i + 3).map((activity) => (
+          {activities.slice(i, i + 4).map((activity) => (
             <ActivityButton {...activity} onClick={onActivityButtonClick} />
           ))}
         </HStack>

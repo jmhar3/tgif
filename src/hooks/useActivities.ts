@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useWeather } from "./api/useWeather";
 
-export interface WarningData {
+export interface ActivityData {
   index: number;
   title: string;
   blurb: string;
@@ -27,7 +27,7 @@ export const useActivities = () => {
     },
     {
       index: 2,
-      title: "Get Inspired",
+      title: "Escape this world",
       blurb: "Travel to a far away world or learn something new",
       text: "The world (and beyond) is your oyster when you hve a book in hand. Travel time and space or live like the whores of yore.",
       icons: [
@@ -47,10 +47,65 @@ export const useActivities = () => {
         "/images/woman.png",
       ],
     },
+    {
+      index: 6,
+      title: "Ready Player One",
+      blurb: "Start your engines... 3. 2. 1. GO!",
+      text: "",
+      icons: [
+        "/images/joystick.png",
+        "/images/game-boy.png",
+        "/images/game-pad.png",
+      ],
+    },
+    {
+      index: 7,
+      title: "Get puzzling",
+      blurb: "Put your thinking cap on",
+      text: "",
+      icons: [
+        "/images/puzzle.png",
+        "/images/crossword.png",
+        "/images/heart-puzzle.png",
+      ],
+    },
+    {
+      index: 8,
+      title: "Play a tune",
+      blurb: "Become your very own virtuoso",
+      text: "",
+      icons: [
+       "/images/keyboard.png",
+        "/images/piano.png",
+        "/images/saxophone.png",
+      ],
+    },
+    {
+      index: 9,
+      title: "Get inspired",
+      blurb: "Make a secret art just for you",
+      text: "",
+      icons: [
+       "/images/paint-tube.png",
+        "/images/colored-pencils.png",
+        "/images/palette.png",
+      ],
+    },
+    {
+      index: 10,
+      title: "Be a builder",
+      blurb: "Become a lego master... or a Ghostbuster... or a Jedi!",
+      text: "",
+      icons: [
+       "/images/toys.png",
+        "/images/blocks.png",
+        "/images/lego.png",
+      ],
+    },
   ];
 
   const [activities, setActivities] =
-    useState<WarningData[]>(generalActivities);
+    useState<ActivityData[]>(generalActivities);
 
   const fetchActivities = useCallback(() => {
     if (forecast) {
@@ -87,38 +142,6 @@ export const useActivities = () => {
               "/images/sun.png",
               "/images/walking-the-dog.png",
               "/images/open-book.png",
-            ],
-          },
-        ]);
-
-      !isDay &&
-        setActivities((prevActivities) => [
-          ...prevActivities,
-          {
-            index: 6,
-            title: "Ready Player One",
-            blurb: "Start your engines... 3. 2. 1. GO!",
-            text: "",
-            icons: [
-              "/images/joystick.png",
-              "/images/game-boy.png",
-              "/images/game-pad.png",
-            ],
-          },
-        ]);
-
-      !isDay &&
-        setActivities((prevActivities) => [
-          ...prevActivities,
-          {
-            index: 7,
-            title: "Get puzzling",
-            blurb: "Put your thinking cap on",
-            text: "",
-            icons: [
-              "/images/puzzle.png",
-              "/images/crossword.png",
-              "/images/heart-puzzle.png",
             ],
           },
         ]);
