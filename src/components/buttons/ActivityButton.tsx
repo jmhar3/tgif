@@ -8,8 +8,6 @@ export interface ActivityButtonProps {
 export const ActivityButton = (props: ActivityButtonProps) => {
   const { title, icons } = props;
 
-  const [neutralBoldSheer] = useToken("colors", ["neutral.boldSheer"]);
-
   return (
     <VStack
       w="100%"

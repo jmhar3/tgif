@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { HStack, Heading, Text, VStack, Img, useToken } from "@chakra-ui/react";
 
-import { WarningData } from "../hooks/useWarnings";
+import { WarningData } from "../../../hooks/useWarnings";
 
 export interface WarningProps {
   warning: WarningData;
@@ -16,8 +16,6 @@ export const Warning = (props: WarningProps) => {
   const {
     warning: { heading, text, icon, colourTheme },
   } = props;
-
-  const [neutralCold] = useToken("colors", ["neutral.cold"]);
 
   const colourScheme = useMemo<ColourScheme>(() => {
     switch (colourTheme) {
