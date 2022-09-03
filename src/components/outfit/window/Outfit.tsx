@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import capitalize from "just-capitalize";
 
 import { Box, Heading, HStack, VStack, Text, Img } from "@chakra-ui/react";
 
@@ -11,14 +12,14 @@ import { WeatherStats } from "../../../pages/index";
 export interface Props {
   forecast: Forecast[];
   weatherStats: WeatherStats;
-  activityLevel?: string;
+  isActive?: boolean;
 }
 
 export const Outfit = (props: Props) => {
-  const { forecast, weatherStats, activityLevel = "sedentary" } = props;
+  const { forecast, weatherStats, isActive = false } = props;
 
   const { warnings } = useWarnings(forecast);
-  const { outfitRecommendation } = useOutfit({ weatherStats, activityLevel });
+  const { outfitRecommendation } = useOutfit({ weatherStats, isActive });
 
   const timeOfDay = useCallback((dateTime: string) => {
     const time = dateTime.slice(11);
@@ -73,7 +74,28 @@ export const Outfit = (props: Props) => {
   return (
     <Box minH="100vh" w="45%" padding="30px" backgroundColor="neutral.light">
       <VStack gap="3" align="flex-start" pb="3">
-        <Heading fontSize="xl">{forecast[0].weather[0].description}</Heading>
+        <HStack
+          w="100%"
+          justify="space-between"
+          bg="neutral.main"
+          p="3"
+          borderRadius="lg"
+        >
+          <Heading fontSize="xl">
+            {capitalize(forecast[0].weather[0].description)}
+          </Heading>
+          <HStack>
+            {outfitRecommendation.accessory && (
+              <Img maxW="9" src={outfitRecommendation.accessory} />
+            )}
+            {outfitRecommendation.top && (
+              <Img maxW="9" src={outfitRecommendation.top} />
+            )}
+            {outfitRecommendation.bottoms && (
+              <Img maxW="9" src={outfitRecommendation.bottoms} />
+            )}
+          </HStack>
+        </HStack>
 
         <HStack gap="3" w="100%" justify="space-between">
           {forecast.map((report) => {

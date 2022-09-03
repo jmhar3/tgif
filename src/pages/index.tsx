@@ -13,7 +13,7 @@ export type WeatherStats = {
   isCold: boolean;
   isWindy: boolean;
   isHumid: boolean;
-  rain: string;
+  isRainy: boolean;
   light: string;
 };
 
@@ -61,32 +61,27 @@ function Home() {
   const weatherStats = useMemo<WeatherStats>(() => {
     const forecast = todaysForecast[0];
 
-    const rain = () => {
-      if (forecast.main.feels_like <= 2) {
-        return "light rain";
-      } else if (forecast.main.feels_like <= 8) {
-        return "rain";
-      } else {
-        return "heavy rain";
-      }
-    };
+    const downpour = () => {
+     const desc = forecast?.weather[0].main
+      return desc === "Rain" || desc === "Hail" || desc === "Thunderstorm" || desc === "snow"
+    }
 
     const light = () => {
       if (!isDay) {
-        return "shade";
+        return "low";
       } else if (forecast.weather[0].main === "clear") {
-        return "sunny";
+        return "high";
       } else {
-        return "cloudy";
+        return "medium";
       }
     };
 
     return {
-      isCold: forecast.main.feels_like <= 18,
-      isWindy: forecast.wind.speed > 20,
-      isHumid: forecast.main.humidity <= 65,
-      rain: rain(),
-      light: light(),
+      isCold: forecast?.main.feels_like <= 14,
+      isWindy: forecast?.wind.speed > 20,
+      isHumid: forecast?.main.humidity <= 65,
+      isRainy: downpour(),
+      light: forecast && light(),
     };
   }, [isDay, todaysForecast]);
 
