@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { Forecast } from "./api/useWeather";
 import { useWeather } from "./api/useWeather";
 
 export interface WarningData {
@@ -10,8 +9,8 @@ export interface WarningData {
   location?: string;
 }
 
-export const useActivities = (forecast?: Forecast[]) => {
-  const { isDay } = useWeather();
+export const useActivities = () => {
+  const { isDay, todaysForecast: forecast } = useWeather();
 
   const generalActivities = [
     {
@@ -46,7 +45,8 @@ export const useActivities = (forecast?: Forecast[]) => {
     },
   ];
 
-  const [activities, setActivities] = useState<WarningData[]>(generalActivities);
+  const [activities, setActivities] =
+    useState<WarningData[]>(generalActivities);
 
   const fetchActivities = useCallback(() => {
     if (forecast) {

@@ -55,7 +55,7 @@ export interface WeatherForecast {
 }
 
 export const useWeather = () => {
-  const { currentLocation } = useGeolocation();
+  const { currentLocation, currentDateTime } = useGeolocation();
 
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather>();
   const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>();
@@ -105,5 +105,17 @@ export const useWeather = () => {
     fetchWeatherForecast();
   }, [fetchCurrentWeather, fetchWeatherForecast]);
 
-  return { currentWeather, weatherForecast, isDay, sunrise, sunset };
+ const todaysForecast = useMemo(() => {
+   if (weatherForecast) {
+     const currentIndex = weatherForecast.list.findIndex((report) => {
+       return report.dt_txt === currentDateTime;
+     });
+
+     return weatherForecast.list.slice(currentIndex, currentIndex + 4);
+   } else {
+     return [];
+   }
+ }, [weatherForecast, currentDateTime]);
+
+  return { currentWeather, weatherForecast, isDay, sunrise, sunset, todaysForecast };
 };

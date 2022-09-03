@@ -8,8 +8,8 @@ export interface WarningData {
   icon: string;
 }
 
-export const useWarnings = (forecast?: Forecast[]) => {
-  const { isDay } = useWeather();
+export const useWarnings = () => {
+  const { isDay, todaysForecast: forecast } = useWeather();
 
   const noDataWarning = {
     colourTheme: "white",
@@ -71,7 +71,8 @@ export const useWarnings = (forecast?: Forecast[]) => {
               icon: "/images/wind.png",
             },
           ]);
-        highlight === "Clear" && isDay &&
+        highlight === "Clear" &&
+          isDay &&
           setWarnings((prevWarnings) => [
             ...prevWarnings,
             {

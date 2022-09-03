@@ -3,22 +3,22 @@ import capitalize from "just-capitalize";
 
 import { Box, Heading, HStack, VStack, Text, Img } from "@chakra-ui/react";
 
-import { Forecast } from "../../../hooks/api/useWeather";
+import { useWeather } from "../../../hooks/api/useWeather";
 import { useWarnings } from "../../../hooks/useWarnings";
 import { useOutfit } from "../../../hooks/useOutfit";
 import { Warning } from "./Warning";
 import { WeatherStats } from "../../../pages/index";
 
 export interface Props {
-  forecast: Forecast[];
   weatherStats: WeatherStats;
   isActive?: boolean;
 }
 
 export const Outfit = (props: Props) => {
-  const { forecast, weatherStats, isActive = false } = props;
+  const { weatherStats, isActive = false } = props;
 
-  const { warnings } = useWarnings(forecast);
+  const { warnings } = useWarnings();
+  const { todaysForecast: forecast } = useWeather();
   const { outfitRecommendation } = useOutfit({ weatherStats, isActive });
 
   const timeOfDay = useCallback((dateTime: string) => {
@@ -82,7 +82,7 @@ export const Outfit = (props: Props) => {
           borderRadius="lg"
         >
           <Heading fontSize="xl">
-            {capitalize(forecast[0].weather[0].description)}
+            {forecast[0] && capitalize(forecast[0].weather[0].description)}
           </Heading>
           <HStack>
             {outfitRecommendation.accessory && (
