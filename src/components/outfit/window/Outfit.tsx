@@ -50,6 +50,14 @@ export const Outfit = (props: Props) => {
     switch (weather) {
       case "Clouds":
         return "/images/clouds.png";
+      case "Thunderstorm":
+        return "/images/thunderstorm.png";
+      case "Drizzle":
+        return "/images/drizzle.png";
+      case "Snow":
+        return "/images/snow.png";
+      case "Atmosphere":
+        return "/images/fog.png";
       case "Rain":
         return "/images/heavy.png";
       case "Hail":
@@ -61,9 +69,13 @@ export const Outfit = (props: Props) => {
     }
   }, []);
 
+  // temperature, relative humidity, wind, precipitation, activity level, sunlight
+
   return (
     <Box minH="100vh" w="45%" padding="30px" backgroundColor="neutral.light">
       <VStack gap="3" align="flex-start" pb="3">
+        <Heading fontSize="xl">{forecast[0].weather[0].description}</Heading>
+
         <HStack gap="3" w="100%" justify="space-between">
           {forecast.map((report) => {
             const timeBlock: string = timeOfDay(report.dt_txt);
