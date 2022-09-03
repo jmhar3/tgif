@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import dayjs from "dayjs";
 
 import { useGeolocation } from "./useGeolocation";
 
@@ -53,6 +52,14 @@ export interface WeatherForecast {
   };
   list: Forecast[];
 }
+
+export type WeatherStats = {
+ isCold: boolean;
+ isWindy: boolean;
+ isHumid: boolean;
+ isRainy: boolean;
+ light: string;
+};
 
 export const useWeather = () => {
   const { currentLocation, currentDateTime } = useGeolocation();
@@ -116,6 +123,38 @@ export const useWeather = () => {
      return [];
    }
  }, [weatherForecast, currentDateTime]);
+ 
+ const weatherStats = useMemo<WeatherStats>(() => {
+  const forecast = todaysForecast[0];
 
-  return { currentWeather, weatherForecast, isDay, sunrise, sunset, todaysForecast };
+  const downpour = () => {
+    const desc = forecast?.weather[0].main;
+    return (
+      desc === "Rain" ||
+      desc === "Hail" ||
+      desc === "Thunderstorm" ||
+      desc === "snow"
+    );
+  };
+
+  const light = () => {
+    if (!isDay) {
+      return "low";
+    } else if (forecast.weather[0].main === "clear") {
+      return "high";
+    } else {
+      return "medium";
+    }
+  };
+
+  return {
+    isCold: forecast?.main.feels_like <= 14,
+    isWindy: forecast?.wind.speed > 20,
+    isHumid: forecast?.main.humidity <= 65,
+    isRainy: downpour(),
+    light: forecast && light(),
+  };
+}, [isDay, todaysForecast]);
+
+  return { currentWeather, weatherForecast, isDay, sunrise, sunset, todaysForecast, weatherStats };
 };

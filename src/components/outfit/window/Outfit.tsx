@@ -75,41 +75,51 @@ export const Outfit = (props: Props) => {
     <Box minH="100vh" w="45%" padding="30px" backgroundColor="neutral.light">
       <VStack gap="3" align="flex-start" pb="3">
         <HStack
-          w="100%"
           justify="space-between"
-          bg="neutral.main"
-          p="3"
+          // bg="neutral.main"
           borderRadius="lg"
+          // p="3"
+          w="100%"
         >
           <Heading fontSize="xl">
             {forecast[0] && capitalize(forecast[0].weather[0].description)}
           </Heading>
           <HStack>
             {outfitRecommendation.accessory && (
-              <Img maxW="9" src={outfitRecommendation.accessory} />
+              <Img maxW="12" src={outfitRecommendation.accessory} />
             )}
             {outfitRecommendation.top && (
-              <Img maxW="9" src={outfitRecommendation.top} />
+              <Img maxW="12" src={outfitRecommendation.top} />
             )}
             {outfitRecommendation.bottoms && (
-              <Img maxW="9" src={outfitRecommendation.bottoms} />
+              <Img maxW="12" src={outfitRecommendation.bottoms} />
             )}
           </HStack>
         </HStack>
 
-        <HStack gap="3" w="100%" justify="space-between">
+        <HStack
+          justify="space-between"
+          bg="neutral.main"
+          borderRadius="lg"
+          h="1"
+          w="100%"
+        />
+
+        <HStack w="100%" justify="space-around">
           {forecast.map((report) => {
             const timeBlock: string = timeOfDay(report.dt_txt);
             return (
-              <VStack>
+              <VStack spacing="1">
                 <Img
-                  maxW="12"
+                  maxW="9"
                   src={weatherIcon(report.weather[0].main, timeBlock)}
                 />
-                <Text>{timeBlock}</Text>
-                <Heading size="lg">
-                  {Math.round(report.main.feels_like)}°
-                </Heading>
+                <VStack spacing="0">
+                  <Text fontSize="sm">{timeBlock}</Text>
+                  <Heading fontSize="xl">
+                    {Math.round(report.main.feels_like)}°
+                  </Heading>
+                </VStack>
               </VStack>
             );
           })}

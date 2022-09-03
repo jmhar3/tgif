@@ -10,13 +10,13 @@ export const Activities = () => {
   const { activities } = useActivities();
 
   return (
-    <Stack w="100%">
+    <Stack w="100%" spacing="3">
       <Stack w="100%" direction={["column", "row"]} spacing="3">
         <ActivityHighlight />
         <StickerChart />
       </Stack>
 
-      <HStack>
+      <HStack spacing="3">
         {activities.map((activity) => (
           <ActivityButton {...activity} />
         ))}

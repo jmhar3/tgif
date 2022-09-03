@@ -1,8 +1,7 @@
 import { useEffect, useCallback, useState } from "react";
-import { WeatherStats } from "../pages";
+import { useWeather } from "./api/useWeather";
 
 export interface OutfitProps {
-  weatherStats: WeatherStats;
   isActive: boolean;
 }
 
@@ -13,7 +12,9 @@ export interface OutfitData {
 }
 
 export const useOutfit = (props: OutfitProps) => {
-  const { weatherStats, isActive } = props;
+  const { isActive } = props;
+
+  const {weatherStats} = useWeather()
 
   const [outfitRecommendation, setOutfitRecommendation] = useState<OutfitData>({
     accessory: undefined,
@@ -37,27 +38,31 @@ export const useOutfit = (props: OutfitProps) => {
     const top = "/images/shirt.png";
     const hat = "/images/hat.png";
 
-    light === "high" && setOutfitRecommendation((prevOutfit) => ({
-     ...prevOutfit,
-     accessory: sunglasses
-    }))
+    light === "high" &&
+      setOutfitRecommendation((prevOutfit) => ({
+        ...prevOutfit,
+        accessory: sunglasses,
+      }));
 
-    isCold && setOutfitRecommendation((prevOutfit) => ({
-     ...prevOutfit,
-     top: isActive ? tshirt : sweater,
-     bottoms: isActive ? longPants : warmPants
-    }))
+    isCold &&
+      setOutfitRecommendation((prevOutfit) => ({
+        ...prevOutfit,
+        top: isActive ? tshirt : sweater,
+        bottoms: isActive ? longPants : warmPants,
+      }));
 
-    !isCold && setOutfitRecommendation((prevOutfit) => ({
-     ...prevOutfit,
-     top: isActive ? top : tshirt,
-     bottoms: isActive ? coolShorts : shorts
-    }))
+    !isCold &&
+      setOutfitRecommendation((prevOutfit) => ({
+        ...prevOutfit,
+        top: isActive ? top : tshirt,
+        bottoms: isActive ? coolShorts : shorts,
+      }));
 
-    isRainy && setOutfitRecommendation((prevOutfit) => ({
-     ...prevOutfit,
-     accessory: isWindy ? raincoat : umbrella
-    }))
+    isRainy &&
+      setOutfitRecommendation((prevOutfit) => ({
+        ...prevOutfit,
+        accessory: isWindy ? raincoat : umbrella,
+      }));
 
     // if (isHumid) {
     //   if (isWindy) {
@@ -450,7 +455,7 @@ export const useOutfit = (props: OutfitProps) => {
     // }
   }, [weatherStats, isActive]);
 
-  useEffect(() => generateOutfit(), []);
+  useEffect(() => generateOutfit(), [generateOutfit]);
 
   return { weatherStats, outfitRecommendation };
 };
