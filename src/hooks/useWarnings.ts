@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { Forecast } from "./api/useWeather";
-import { useWeather } from "./api/useWeather";
+import { Forecast, useWeather } from "./api/useWeather";
 
 export interface WarningData {
   colourTheme: string;
@@ -92,7 +91,7 @@ export const useWarnings = (forecast?: Forecast[]) => {
 
   useEffect(() => {
     fetchWarnings();
-  }, [forecast, fetchWarnings]);
+  }, [fetchWarnings]);
 
   return { warnings };
 };

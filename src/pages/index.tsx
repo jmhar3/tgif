@@ -9,11 +9,16 @@ import { Activities } from "../components/activity/window/Activities";
 
 import { useWeather } from "../hooks/api/useWeather";
 
-function Home() {
-  const { currentWeather, weatherForecast, sunrise, sunset } = useWeather();
+export type WeatherStats = {
+  isCold: boolean;
+  isWindy: boolean;
+  isHumid: boolean;
+  rain: string;
+  light: string;
+};
 
-  console.log("currentWeather", currentWeather);
-  console.log("weatherForecast", weatherForecast);
+function Home() {
+  const { weatherForecast, isDay } = useWeather();
 
   const currentDateTime = useMemo(() => {
     const dateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
@@ -53,6 +58,38 @@ function Home() {
     }
   }, [weatherForecast, currentDateTime]);
 
+  const weatherStats = useMemo<WeatherStats>(() => {
+    const forecast = todaysForecast[0];
+
+    const rain = () => {
+      if (forecast.main.feels_like <= 2) {
+        return "light rain";
+      } else if (forecast.main.feels_like <= 8) {
+        return "rain";
+      } else {
+        return "heavy rain";
+      }
+    };
+
+    const light = () => {
+      if (!isDay) {
+        return "shade";
+      } else if (forecast.weather[0].main === "clear") {
+        return "sunny";
+      } else {
+        return "cloudy";
+      }
+    };
+
+    return {
+      isCold: forecast.main.feels_like <= 18,
+      isWindy: forecast.wind.speed > 20,
+      isHumid: forecast.main.humidity <= 65,
+      rain: rain(),
+      light: light(),
+    };
+  }, [isDay, todaysForecast]);
+
   const username = "titfairy";
 
   return (
@@ -71,7 +108,7 @@ function Home() {
               <Heading size="lg">Howdy {username}</Heading>
               <Activities />
             </VStack>
-            <Outfit forecast={todaysForecast} />
+            <Outfit forecast={todaysForecast} weatherStats={weatherStats} />
           </HStack>
         )}
       </>

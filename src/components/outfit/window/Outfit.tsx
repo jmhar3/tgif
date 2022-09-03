@@ -1,23 +1,24 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 import { Box, Heading, HStack, VStack, Text, Img } from "@chakra-ui/react";
 
-import { Forecast, useWeather } from "../../../hooks/api/useWeather";
+import { Forecast } from "../../../hooks/api/useWeather";
 import { useWarnings } from "../../../hooks/useWarnings";
-
+import { useOutfit } from "../../../hooks/useOutfit";
 import { Warning } from "./Warning";
-import { useEffect } from "react";
+import { WeatherStats } from "../../../pages/index";
 
 export interface Props {
   forecast: Forecast[];
+  weatherStats: WeatherStats;
+  activityLevel?: string;
 }
 
 export const Outfit = (props: Props) => {
-  const { forecast } = props;
-
-  const { isDay, sunrise, sunset } = useWeather();
+  const { forecast, weatherStats, activityLevel = "sedentary" } = props;
 
   const { warnings } = useWarnings(forecast);
+  const { outfitRecommendation } = useOutfit({ weatherStats, activityLevel });
 
   const timeOfDay = useCallback((dateTime: string) => {
     const time = dateTime.slice(11);
@@ -68,8 +69,6 @@ export const Outfit = (props: Props) => {
         return undefined;
     }
   }, []);
-
-  // temperature, relative humidity, wind, precipitation, activity level, sunlight
 
   return (
     <Box minH="100vh" w="45%" padding="30px" backgroundColor="neutral.light">
