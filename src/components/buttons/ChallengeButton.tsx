@@ -1,6 +1,4 @@
-import { useState, useMemo } from "react";
-
-import { HStack, Img, Heading, Stack, VStack } from "@chakra-ui/react";
+import { HStack, Img, Heading, Button, VStack } from "@chakra-ui/react";
 
 export type Challenge = {
   index: number;
@@ -12,20 +10,35 @@ export type Challenge = {
 
 export interface ChallengeButtonProps {
   challenge: Challenge;
+  index: number;
+  onClick: (index: number) => void;
 }
 
 export const ChallengeButton = (props: ChallengeButtonProps) => {
-  const { challenge } = props;
+  const { challenge, index, onClick } = props;
 
   return (
-    <HStack w="100%" bg="neutral.main" borderRadius="md" p="3" px="5" spacing="5">
-      <Img src={challenge.image} maxW="12" />
-      <VStack spacing="0" align="flex-start">
-        <Heading fontSize="xl">{challenge.label}</Heading>
-        <Heading fontSize="xl">
-          {challenge.completed}/{challenge.duration} days
-        </Heading>
-      </VStack>
-    </HStack>
+    <Button
+      p="3"
+      px="5"
+      h="100%"
+      w="100%"
+      borderRadius="md"
+      bg="neutral.main"
+      transition="all .3s"
+      _hover={{ backgroundColor: "neutral.boldSheer" }}
+      onClick={() => onClick(index)}
+      key={index}
+    >
+      <HStack w="100%" spacing="5">
+        <Img src={challenge.image} maxW="9" />
+        <VStack spacing="0" align="flex-start">
+          <Heading fontSize="lg">{challenge.label}</Heading>
+          <Heading fontSize="lg">
+            {challenge.completed}/{challenge.duration} days
+          </Heading>
+        </VStack>
+      </HStack>
+    </Button>
   );
 };

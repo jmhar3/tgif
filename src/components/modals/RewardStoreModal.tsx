@@ -57,7 +57,7 @@ export const RewardStoreModal = (props: RewardStoreModalProps) => {
         <ModalHeader>
           <HStack justify="space-between">
             <HStack>
-              <Img maxW="9" src="/images/reward.png" />
+              <Img maxW="6" src="/images/reward.png" />
               <Heading fontSize="2xl">Reward Store</Heading>
             </HStack>
             <IconButton

@@ -7,19 +7,18 @@ import { useWeather } from "../../../hooks/api/useWeather";
 import { useWarnings } from "../../../hooks/useWarnings";
 import { useOutfit } from "../../../hooks/useOutfit";
 import { Warning } from "./Warning";
-import { WeatherStats } from "../../../pages/index";
+import dayjs from "dayjs";
 
 export interface Props {
-  weatherStats: WeatherStats;
   isActive?: boolean;
 }
 
 export const Outfit = (props: Props) => {
-  const { weatherStats, isActive = false } = props;
+  const { isActive = false } = props;
 
   const { warnings } = useWarnings();
-  const { todaysForecast: forecast } = useWeather();
-  const { outfitRecommendation } = useOutfit({ weatherStats, isActive });
+  const { todaysForecast: forecast, weatherStats } = useWeather();
+  const { outfitRecommendation } = useOutfit({ isActive });
 
   const timeOfDay = useCallback((dateTime: string) => {
     const time = dateTime.slice(11);
@@ -74,16 +73,15 @@ export const Outfit = (props: Props) => {
   return (
     <Box minH="100vh" w="45%" padding="30px" backgroundColor="neutral.light">
       <VStack gap="3" align="flex-start" pb="3">
-        <HStack
-          justify="space-between"
-          // bg="neutral.main"
-          borderRadius="lg"
-          // p="3"
-          w="100%"
-        >
+        <HStack justify="space-between" w="100%">
+         <VStack spacing="1" align="flex-start">
           <Heading fontSize="xl">
+            {dayjs().format("dddd h:mmA")}
+          </Heading>
+          <Heading fontSize="xl" fontWeight="semibold">
             {forecast[0] && capitalize(forecast[0].weather[0].description)}
           </Heading>
+         </VStack>
           <HStack>
             {outfitRecommendation.accessory && (
               <Img maxW="12" src={outfitRecommendation.accessory} />

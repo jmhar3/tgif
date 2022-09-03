@@ -15,7 +15,7 @@ export const useWarnings = () => {
     colourTheme: "white",
     heading: "There's no data available",
     text: "Go stand outside and collect the data yourself",
-    icon: "/images/clouds.png",
+    icon: "/images/sun.png",
   };
 
   const [warnings, setWarnings] = useState<WarningData[]>([noDataWarning]);
@@ -48,7 +48,7 @@ export const useWarnings = () => {
               text: isDay
                 ? "Don't forget to take an umbrella!"
                 : "Sleep to the soothing sound of rain",
-              icon: "/images/heavy.png",
+              icon: isDay ? "/images/umbrella.png" : "/images/storm",
             },
           ]);
         highlight === "Hail" &&
@@ -67,7 +67,7 @@ export const useWarnings = () => {
             {
               colourTheme: "amber",
               heading: "Caution: High Winds",
-              text: "Take a hair tie or wear a hat",
+              text: "Take a hair tie or tie on a hat",
               icon: "/images/wind.png",
             },
           ]);
@@ -79,7 +79,7 @@ export const useWarnings = () => {
               colourTheme: "white",
               heading: "Clear skies ahead",
               text: "Don't forget some sunscreen",
-              icon: "/images/sun2.png",
+              icon: "/images/sunscreen.png",
             },
           ]);
       });

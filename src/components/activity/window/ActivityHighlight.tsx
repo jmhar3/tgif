@@ -55,12 +55,12 @@ export const ActivityHighlight = () => {
           bg={isMouseOver ? "neutral.sheer" : "neutral.light"}
           transition="all .1s"
         >
-          <HStack justify="center" w="100%">
+          {/* <HStack justify="center" w="100%">
             {activity.icons.map((icon) => (
               <Img src={icon} maxW="12" />
             ))}
-          </HStack>
-          <Text>{activity.blurb}</Text>
+          </HStack> */}
+          <Text fontWeight="semibold">{activity.blurb}</Text>
         </VStack>
       </VStack>
 

@@ -21,7 +21,7 @@ export const RewardStoreButton = (props: RewardStoreButtonProps) => {
       </Button>
 
       <HStack bg="neutral.boldSheer" borderRadius="lg" p="2">
-        <Img src="/images/money.png" maxW="6" />
+        <Img src="/images/money.png" maxW="5" pt="1" />
         <Heading fontSize="xl">{credits}</Heading>
       </HStack>
     </HStack>

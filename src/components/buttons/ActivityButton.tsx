@@ -1,29 +1,33 @@
-import { VStack, HStack, Heading, Img, useToken } from "@chakra-ui/react";
+import { VStack, HStack, Heading, Img, Button } from "@chakra-ui/react";
 
 export interface ActivityButtonProps {
+  index: number;
   title: string;
   icons: string[];
+  onClick: (index: number) => void;
 }
 
 export const ActivityButton = (props: ActivityButtonProps) => {
-  const { title, icons } = props;
+  const { title, icons, index, onClick } = props;
 
   return (
-    <VStack
+    <Button
       w="100%"
-      _hover={{bg: "neutral.sheer"}}
-      bg="neutral.light"
+      h="100%"
+      p="3"
       borderRadius="lg"
-      align="center"
-      p="5"
-      spacing="3"
+      _hover={{ bg: "neutral.sheer" }}
+      bg="neutral.light"
+      onClick={() => onClick(index)}
     >
-      <Heading fontSize="md">{title}</Heading>
-      <HStack spacing="3">
-        {icons.map((icon) => (
-          <Img maxW="9" src={icon} />
-        ))}
-      </HStack>
-    </VStack>
+      <VStack align="center" spacing="3">
+        <Heading fontSize="md">{title}</Heading>
+        <HStack spacing="3">
+          {icons.map((icon) => (
+            <Img maxW="9" src={icon} />
+          ))}
+        </HStack>
+      </VStack>
+    </Button>
   );
 };
